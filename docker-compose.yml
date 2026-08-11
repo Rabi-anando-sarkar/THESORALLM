@@ -1,0 +1,43 @@
+services:
+  postgres:
+    # PostgreSQL 17
+    image: postgres:17
+
+    # Name of our PostgreSQL container
+    container_name: recall_postgres
+
+    environment:
+      # Database PostgreSQL will create
+      POSTGRES_DB: recall_ai
+
+      # PostgreSQL username
+      POSTGRES_USER: postgres
+
+      # PostgreSQL password
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      # 5433 on our computer → 5432 inside PostgreSQL
+      - "5433:5432"
+
+    volumes:
+      # Persist database data even if container is recreated
+      - recall_pg_data:/var/lib/postgresql/data
+
+    healthcheck:
+      # Check whether PostgreSQL is ready
+      test: ["CMD-SHELL", "pg_isready -U postgres -d recall_ai"]
+
+      # Check every 5 seconds
+      interval: 5s
+
+      # Give the check 5 seconds to respond
+      timeout: 5s
+
+      # Try 5 times before considering it unhealthy
+      retries: 5
+
+
+volumes:
+  # Docker-managed persistent storage
+  recall_pg_data:
