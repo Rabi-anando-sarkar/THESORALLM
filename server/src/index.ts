@@ -1,6 +1,6 @@
 import express from 'express'
 import "dotenv/config"
-import { auth } from './lib/auth.js';
+import { auth } from './libs/auth.js';
 import { toNodeHandler } from 'better-auth/node';
 
 const app = express()

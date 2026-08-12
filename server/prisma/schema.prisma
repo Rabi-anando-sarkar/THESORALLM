@@ -28,6 +28,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
+  shelfs        Shelf[]
 
   @@unique([email])
   @@map("user")
@@ -79,4 +80,28 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+enum ChatModel {
+  gpt_4o_mini
+  gpt_4o
+}
+
+model Shelf {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  description String?
+  icon        String?
+  selectModel ChatModel
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // sources Source[]
+  // conversations Conversation[]
+  // artifacts LearningArtifacts[]
+
+  @@index([userId])
+  @@map("shelf")
 }
