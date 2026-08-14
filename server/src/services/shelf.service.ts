@@ -28,12 +28,12 @@ export async function updateShelfForUser(shelfId: string, userId: string, input:
 export async function deleteShelfForUser(shelfId: string, userId: string) {
     await getShelfByIdForUser(shelfId,userId)
 
-    try {
-        await deleteShelfVectors(shelfId)
-    } catch (error) {
-        console.error();
-        console.error("Failed to delete Pinecone namespace:", error);
-    }
+    // try {
+    //     await deleteShelfVectors(shelfId)
+    // } catch (error) {
+    //     console.error();
+    //     console.error("Failed to delete Pinecone namespace:", error);
+    // }
 
     await deleteShelfRecord(shelfId)
 }
